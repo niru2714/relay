@@ -79,24 +79,6 @@ npm run dev
 
 ---
 
-## Deploy it (free)
-
-The web app is static, so it can go on **Vercel** or **Netlify**. The API is a long-running Node process (it has a background timer for confirmation timeouts), so it cannot run as a serverless function. Host it on **Render** (free) with a free **MongoDB Atlas** database.
-
-**1. Database.** Create a free cluster on MongoDB Atlas, add a database user, allow access from anywhere (`0.0.0.0/0`), and copy the connection string.
-
-**2. API on Render.** New + Blueprint, pick this repository (it reads [`render.yaml`](render.yaml)). Set `MONGODB_URI` to the Atlas string. Leave `CORS_ORIGIN` for step 4. After deploy, `https://<your-api>.onrender.com/api/health` should return `ok`. The free plan sleeps after inactivity, so the first request can take about 50 seconds.
-
-**3. Web app on Vercel** (or Netlify). Import the repository. The root [`vercel.json`](vercel.json) (or [`netlify.toml`](netlify.toml)) already sets the build command, output folder and the single-page-app fallback. Add one environment variable before the first build:
-
-```
-VITE_API_BASE_URL=https://<your-api>.onrender.com
-```
-
-**4. Finish.** Go back to Render and set `CORS_ORIGIN` to the web app URL (for example `https://relay.vercel.app`), then redeploy the API.
-
----
-
 ## Demo scenario (≈ 3 minutes, no database edits)
 
 Click **Load demo data** on the Dashboard first (or start with `SEED_ON_START=true`). The sample data contains every state. To walk the full story yourself:

@@ -115,7 +115,7 @@ export function Layout() {
           transition={{ duration: 0.22 }}
         >
           <Outlet />
-        </motion.div> 
+        </motion.div>
       </main>
     </div>
   );
