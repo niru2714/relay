@@ -1,0 +1,89 @@
+export const JOB_STATUS = Object.freeze({
+  NEW: 'NEW',
+  READY_FOR_ASSIGNMENT: 'READY_FOR_ASSIGNMENT',
+  AWAITING_CONFIRMATION: 'AWAITING_CONFIRMATION',
+  ACCEPTED: 'ACCEPTED',
+  PICKED_UP: 'PICKED_UP',
+  DELIVERED: 'DELIVERED',
+  MANUAL_QUEUE: 'MANUAL_QUEUE',
+  CANCELLED: 'CANCELLED',
+});
+export const JOB_STATUSES = Object.values(JOB_STATUS) as [JobStatus, ...JobStatus[]];
+export const TERMINAL_STATUSES: JobStatus[] = [JOB_STATUS.DELIVERED, JOB_STATUS.CANCELLED];
+
+export const PRIORITY = Object.freeze({
+  LOW: 'LOW',
+  NORMAL: 'NORMAL',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT',
+});
+export const PRIORITIES = Object.values(PRIORITY) as [Priority, ...Priority[]];
+export const PRIORITY_RANK: Readonly<Record<Priority, number>> = Object.freeze({
+  LOW: 1,
+  NORMAL: 2,
+  HIGH: 3,
+  URGENT: 4,
+});
+
+export const ASSIGNMENT_STATUS = Object.freeze({
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED',
+  WITHDRAWN: 'WITHDRAWN',
+  REASSIGNED: 'REASSIGNED',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED',
+});
+export const ACTIVE_ASSIGNMENT_STATUSES: AssignmentStatus[] = [
+  ASSIGNMENT_STATUS.PENDING,
+  ASSIGNMENT_STATUS.ACCEPTED,
+];
+export const AVAILABILITY = Object.freeze({
+  AVAILABLE: 'AVAILABLE',
+  ON_BREAK: 'ON_BREAK',
+  OFFLINE: 'OFFLINE',
+});
+export const AVAILABILITIES = Object.values(AVAILABILITY) as [Availability, ...Availability[]];
+export const VEHICLES = ['BIKE', 'SCOOTER', 'VAN'] as const;
+
+export const ACTOR_TYPE = Object.freeze({
+  DISPATCHER: 'DISPATCHER',
+  RIDER: 'RIDER',
+  SYSTEM: 'SYSTEM',
+});
+
+export const MANUAL_QUEUE_REASON = Object.freeze({
+  ASSIGNMENT_TIMEOUT: 'ASSIGNMENT_TIMEOUT',
+  RIDER_REJECTED: 'RIDER_REJECTED',
+  RIDER_WITHDREW: 'RIDER_WITHDREW',
+  DISPATCHER_ESCALATION: 'DISPATCHER_ESCALATION',
+  ORPHANED_ASSIGNMENT: 'ORPHANED_ASSIGNMENT',
+});
+export const EVENT_TYPE = Object.freeze({
+  JOB_CREATED: 'JOB_CREATED',
+  JOB_READY: 'JOB_READY',
+  NO_ELIGIBLE_RIDER: 'NO_ELIGIBLE_RIDER',
+  RIDER_ASSIGNED: 'RIDER_ASSIGNED',
+  MANUAL_OVERRIDE: 'MANUAL_OVERRIDE',
+  RIDER_REASSIGNED: 'RIDER_REASSIGNED',
+  ASSIGNMENT_ACCEPTED: 'ASSIGNMENT_ACCEPTED',
+  ASSIGNMENT_REJECTED: 'ASSIGNMENT_REJECTED',
+  ASSIGNMENT_EXPIRED: 'ASSIGNMENT_EXPIRED',
+  ASSIGNMENT_WITHDRAWN: 'ASSIGNMENT_WITHDRAWN',
+  MOVED_TO_MANUAL_QUEUE: 'MOVED_TO_MANUAL_QUEUE',
+  REQUEUED: 'REQUEUED',
+  PICKED_UP: 'PICKED_UP',
+  DELIVERED: 'DELIVERED',
+  JOB_CANCELLED: 'JOB_CANCELLED',
+});
+type ValueOf<T> = T[keyof T];
+export type JobStatus = ValueOf<typeof JOB_STATUS>;
+export type Priority = ValueOf<typeof PRIORITY>;
+export type AssignmentStatus = ValueOf<typeof ASSIGNMENT_STATUS>;
+export type Availability = ValueOf<typeof AVAILABILITY>;
+export type Vehicle = (typeof VEHICLES)[number];
+export type ActorType = ValueOf<typeof ACTOR_TYPE>;
+export type ManualQueueReason = ValueOf<typeof MANUAL_QUEUE_REASON>;
+export type EventType = ValueOf<typeof EVENT_TYPE>;
+export type AssignmentSource = 'RECOMMENDED' | 'OVERRIDE' | 'AUTO' | 'REASSIGNMENT';

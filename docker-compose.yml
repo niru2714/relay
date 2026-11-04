@@ -1,0 +1,10 @@
+# Optional: a persistent MongoDB instead of the default in-memory one.
+#   docker compose up -d
+#   echo "MONGODB_URI=mongodb://127.0.0.1:27017/relay" > server/.env
+services:
+  mongo:
+    image: mongo:7
+    ports: ['27017:27017']
+    volumes: ['relay-data:/data/db']
+volumes:
+  relay-data:

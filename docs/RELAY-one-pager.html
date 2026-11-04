@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>RELAY — one-page solution</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { width: 297mm; height: 210mm; padding: 9mm 11mm; font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; color: #121933; background: #fff; font-size: 8.9pt; line-height: 1.38; -webkit-print-color-adjust: exact; print-color-adjust: exact; overflow: hidden; }
+  header { display: flex; align-items: center; gap: 12px; padding-bottom: 7px; border-bottom: 2px solid #6366f1; margin-bottom: 8px; }
+  .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, #7c83ff, #22d3ee); display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 15px; }
+  h1 { font-size: 17pt; margin: 0; letter-spacing: -0.01em; } .sub { color: #5b6585; font-size: 9pt; }
+  header .right { margin-left: auto; text-align: right; color: #5b6585; font-size: 8pt; }
+  .grid { display: grid; grid-template-columns: 1fr 1.05fr 1fr; gap: 8px; }
+  .box { border: 1px solid #dfe3f3; border-radius: 9px; padding: 8px 10px; background: #fbfbff; }
+  .box h2 { margin: 0 0 4px; font-size: 8.6pt; text-transform: uppercase; letter-spacing: .07em; color: #4f56e0; display: flex; gap: 6px; align-items: center; }
+  .box h2 i { font-style: normal; width: 16px; height: 16px; border-radius: 5px; background: #6366f1; color: #fff; display: inline-grid; place-items: center; font-size: 8pt; letter-spacing: 0; }
+  ul { margin: 3px 0 0; padding-left: 13px; } li { margin: 1.5px 0; }
+  b { color: #0c1230; } .m { color: #5b6585; }
+  .flow { display: flex; gap: 3px; align-items: stretch; margin: 5px 0 3px; flex-wrap: wrap; }
+  .flow span { background: #eef0ff; border: 1px solid #d5d9fb; border-radius: 6px; padding: 2px 6px; font-size: 7.6pt; font-weight: 600; color: #3a41b8; } .flow em { font-style: normal; color: #9aa3cc; align-self: center; }
+  .flow .bad { background: #ffeef0; border-color: #ffd0d6; color: #c22a43; } .flow .good { background: #e8fbf2; border-color: #bff0d9; color: #0f7a4f; }
+  table { border-collapse: collapse; width: 100%; font-size: 7.8pt; margin-top: 3px; } td, th { border: 1px solid #e3e6f5; padding: 2px 5px; text-align: left; } th { background: #f1f2ff; color: #3a41b8; }
+  .tradeoff { background: #fff8e8; border-color: #f4dfa8; } .tradeoff h2 { color: #a46a00; } .tradeoff h2 i { background: #e8a200; }
+  .next { background: #f0fbf6; border-color: #bfe9d3; } .next h2 { color: #0f7a4f; } .next h2 i { background: #17b26a; }
+  svg text { font-family: inherit; }
+  .kpi { display: flex; gap: 8px; margin-top: 5px; } .kpi div { flex: 1; background: #fff; border: 1px solid #dfe3f3; border-radius: 7px; padding: 3px 6px; text-align: center; } .kpi b { display: block; font-size: 12pt; color: #4f56e0; } .kpi small { color: #5b6585; font-size: 7pt; }
+  footer { position: absolute; bottom: 6mm; left: 11mm; right: 11mm; display: flex; justify-content: space-between; color: #8a93b5; font-size: 7pt; }
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">R</div>
+  <div><h1>RELAY — the autonomous dispatch desk</h1><div class="sub">Solution overview for the engineering manager · MERN + TypeScript</div></div>
+  <div class="right"><b>95 automated tests</b> · strict TypeScript · runs with <b>npm install &amp;&amp; npm run dev</b></div>
+</header>
+
+<div class="grid">
+  <!-- column 1 -->
+  <div style="display:grid; gap:8px; align-content:start;">
+    <div class="box">
+      <h2><i>1</i> Problem → solution</h2>
+      <b>Problem.</b> Dispatchers juggle availability, phone calls and spreadsheets. When a rider doesn’t answer or nobody fits, orders sit idle — and nobody notices until a customer complains.
+      <ul>
+        <li><b>Recommend</b> eligible riders with an explained ranking.</li>
+        <li><b>Reserve</b> rider capacity the moment someone is assigned; <b>release</b> it on any failure.</li>
+        <li><b>Auto-escalate</b>: no confirmation in 2 h (configurable) → job lands in the <b>Manual Queue</b>, with the reason on record.</li>
+        <li><b>Surface</b> what needs a human on one dashboard; <b>audit</b> every action.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2><i>2</i> Dispatcher’s primary workflow</h2>
+      <div class="flow"><span>Job created</span><em>›</em><span>Ranked riders + “why”</span><em>›</em><span>Assign / override (reason)</span><em>›</em><span>Rider confirms</span><em>›</em><span class="good">Picked up → Delivered</span></div>
+      <div class="flow"><span>No answer in 2 h</span><em>›</em><span class="bad">Manual queue</span><em>›</em><span>Investigate</span><em>›</em><span>Reassign</span><em>›</em><span class="good">Done</span></div>
+      <ul>
+        <li>Dashboard: 7 live counters, pipeline, <b>Needs attention</b> feed (critical / warning).</li>
+        <li>Job page: lifecycle stepper, countdown ring, full activity timeline, every failed attempt kept.</li>
+        <li>Riders page: capacity ledger + “can they take another delivery?” check.</li>
+      </ul>
+      <div class="kpi"><div><b>8</b><small>job states, guarded transitions</small></div><div><b>1</b><small>open assignment per job (DB-enforced)</small></div><div><b>0</b><small>ledger drift — integrity check asserted across the tests</small></div></div>
+    </div>
+  </div>
+
+  <!-- column 2 -->
+  <div style="display:grid; gap:8px; align-content:start;">
+    <div class="box">
+      <h2><i>3</i> Recommendations &amp; automatic queue handling</h2>
+      <b>Hard rules</b> (never recommended): unavailable · pickup/delivery zone not served · not enough free capacity · no free job slot · already rejected this job.
+      <table>
+        <tr><th>Score 0–100</th><th>Normal</th><th>High</th><th>Urgent</th></tr>
+        <tr><td>Travel to pickup</td><td>35</td><td>45</td><td>55</td></tr>
+        <tr><td>Workload (spare slots)</td><td>30</td><td>20</td><td>10</td></tr>
+        <tr><td>Capacity fit (right-size)</td><td>10</td><td>5</td><td>5</td></tr>
+        <tr><td>Deadline headroom</td><td>25</td><td>30</td><td>30</td></tr>
+      </table>
+      <ul>
+        <li>Each candidate shows per-factor points and a sentence: <i>“Recommended over Rahul: 9.4 pts higher, mainly closer to pickup.”</i></li>
+        <li>Picking anyone but #1 <b>requires a reason</b>; both riders &amp; scores are logged.</li>
+        <li>Nobody eligible → job stays <b>unassigned</b>, is flagged once, appears in “Needs attention”.</li>
+        <li><b>Timeout</b> (sweeper + lazy check on accept + orphan repair): attempt → <i>EXPIRED</i> (kept), capacity released, job → Manual Queue, immediately re-assignable. <b>Reject / withdraw</b> take the same path.</li>
+        <li>Reviewer can set the window to 0.5 min or <b>advance a simulated clock</b> — no 2-hour wait.</li>
+      </ul>
+    </div>
+    <div class="box tradeoff">
+      <h2><i>!</i> One important trade-off</h2>
+      <b>Compare-and-set instead of transactions.</b> I made every write a single-document CAS (job status+pointer, assignment status, guarded capacity <code>$inc</code>) and order steps so a crash leaves something <i>detectable</i>, instead of requiring a MongoDB replica set.
+      <ul>
+        <li><b>Gain:</b> runs on any <code>mongod</code> (even in-memory), races resolved and covered by tests: accept-vs-timeout, two dispatchers, over-commit.</li>
+        <li><b>Cost:</b> a crash between a state change and its audit event could drop an event; mitigated by an integrity check + orphan repair, fixed properly by transactions/outbox next.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- column 3 -->
+  <div style="display:grid; gap:8px; align-content:start;">
+    <div class="box">
+      <h2><i>4</i> Architecture &amp; data model</h2>
+      <svg viewBox="0 0 300 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7z" fill="#8a93c8"/></marker></defs>
+        <rect x="2" y="6" width="84" height="40" rx="7" fill="#eef0ff" stroke="#c7ccf7"/><text x="44" y="22" font-size="8.5" font-weight="700" text-anchor="middle" fill="#3a41b8">React + TS</text><text x="44" y="34" font-size="7" text-anchor="middle" fill="#5b6585">motion · TanStack Query</text>
+        <rect x="106" y="6" width="192" height="94" rx="7" fill="#fff" stroke="#c7ccf7"/><text x="202" y="18" font-size="8" font-weight="700" text-anchor="middle" fill="#3a41b8">Express API (TypeScript)</text>
+        <rect x="114" y="24" width="176" height="16" rx="4" fill="#f1f2ff"/><text x="202" y="35" font-size="7.3" text-anchor="middle" fill="#3a41b8">routes · Zod validation · actor · errors</text>
+        <rect x="114" y="44" width="176" height="24" rx="4" fill="#e8fbf2" stroke="#bff0d9"/><text x="202" y="54" font-size="7.3" text-anchor="middle" fill="#0f7a4f">services: assign · accept · timeout · delivery</text><text x="202" y="63" font-size="6.6" text-anchor="middle" fill="#0f7a4f">compare-and-set + capacity ledger</text>
+        <rect x="114" y="72" width="176" height="22" rx="4" fill="#fff8e8" stroke="#f4dfa8"/><text x="202" y="82" font-size="7.3" text-anchor="middle" fill="#a46a00">domain (pure): state machine · ranking</text><text x="202" y="90" font-size="6.6" text-anchor="middle" fill="#a46a00">attention rules · travel data</text>
+        <line x1="86" y1="26" x2="106" y2="26" stroke="#8a93c8" marker-end="url(#a)"/>
+        <rect x="106" y="112" width="192" height="36" rx="7" fill="#f1f2ff" stroke="#c7ccf7"/><text x="202" y="124" font-size="8" font-weight="700" text-anchor="middle" fill="#3a41b8">MongoDB</text>
+        <text x="202" y="136" font-size="7" text-anchor="middle" fill="#5b6585">jobs · riders · assignments · jobevents (append-only)</text><text x="202" y="144" font-size="6.4" text-anchor="middle" fill="#8a93b5">unique orderId · partial-unique open assignment</text>
+        <line x1="202" y1="100" x2="202" y2="112" stroke="#8a93c8" marker-end="url(#a)"/>
+        <circle cx="30" cy="100" r="15" fill="#ffeef0" stroke="#ffd0d6"/><text x="30" y="98" font-size="6.5" text-anchor="middle" fill="#c22a43">sweeper</text><text x="30" y="106" font-size="6.5" text-anchor="middle" fill="#c22a43">5 s</text>
+        <line x1="45" y1="100" x2="106" y2="80" stroke="#8a93c8" marker-end="url(#a)"/>
+      </svg>
+      <ul>
+        <li><b>Job ≠ assignment:</b> a job accumulates attempts (timed-out, rejected, reassigned) that are never deleted.</li>
+        <li><b>Rider ledger:</b> reserved vs active load, changed only by whoever wins the assignment CAS → released exactly once.</li>
+        <li><b>History:</b> separate append-only event log (type, time, actor, details) — status never used to rebuild the past.</li>
+        <li>Indexes: <code>{status, priority, createdAt}</code> queues · <code>{status, expiresAt}</code> sweeper · <code>{jobId,_id}</code> history.</li>
+      </ul>
+    </div>
+    <div class="box next">
+      <h2><i>→</i> If I had another week</h2>
+      <ul>
+        <li><b>Transactions / outbox + lease-based sweeper</b> — close the last consistency gap; scale out API nodes.</li>
+        <li><b>Learned dispatch</b> — rider acceptance &amp; on-time history, batch assignment across waiting jobs, offline replay to tune weights.</li>
+        <li><b>Real-time + rider channel + auth</b> — SSE push, reminder before timeout, JWT roles.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<footer><span>Docs: README · docs/API.md · docs/SYSTEM_DESIGN.md · docs/ENGINEERING_NOTES.md</span><span>Project RELAY</span></footer>
+</body>
+</html>
